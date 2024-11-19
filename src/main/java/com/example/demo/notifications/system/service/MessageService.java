@@ -18,7 +18,6 @@ public class MessageService {
     private static final Logger log = LoggerFactory.getLogger(MessageService.class);
     private final MessageResultService messageResultService;
 
-    @Transactional
     @Async("messageSenderThreadPoolTaskExecutor")
     public void send(Long uid) {
 //        log.info("executing Thread Name .. [{}] : 유저 {}", Thread.currentThread().getName(), uid);

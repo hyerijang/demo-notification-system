@@ -27,6 +27,7 @@ public class MessageResultService {
         return messageResultRepository.existsByUidAndCreatedAtBetween(uid, startOfDay, endOfDay);
     }
 
+    @Transactional
     void init(Long uid) {
         // 중복발송 방지 위해 메세지 발송 전 상태 저장
         MessageResult result = new MessageResult(uid);
