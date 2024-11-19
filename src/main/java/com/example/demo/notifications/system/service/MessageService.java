@@ -27,7 +27,7 @@ public class MessageService {
             Thread.sleep(20); // 메세지 플랫폼과의 통신에 20ms 걸린다고 가정
             messageResultService.changeToSuccess(uid);
             Thread.sleep(10); // tps 조절 : 10ms = 0.01초 대기
-//            log.info("발송완료 [{}] : 유저 {}", Thread.currentThread().getName(), uid);
+            log.info("발송완료 [{}] : 유저 {}", Thread.currentThread().getName(), uid);
 
         } catch (Exception e) {
             messageResultService.changeToFail(uid);
