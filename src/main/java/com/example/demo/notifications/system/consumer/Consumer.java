@@ -22,6 +22,8 @@ public class Consumer {
         if (messageResultService.sentToday(uid)) {
             return;
         }
+
+        messageResultService.init(uid);
         messageService.send(uid);
     }
 }
