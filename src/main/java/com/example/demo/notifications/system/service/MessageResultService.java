@@ -27,26 +27,41 @@ public class MessageResultService {
         return messageResultRepository.existsByUidAndCreatedAtBetween(uid, startOfDay, endOfDay);
     }
 
-    void init(Long uid) {
+    @Transactional
+    public void init(Long uid) {
         // 중복발송 방지 위해 메세지 발송 전 상태 저장
         MessageResult result = new MessageResult(uid);
         messageResultRepository.save(result);
     }
 
-    void changeToSuccess(Long uid) {
-        changeStatus(uid, true);
+    void changeToSuccess(MessageResult result) {
+        changeStatus(result, true);
     }
 
-    void changeToFail(Long uid) {
-        changeStatus(uid, false);
+    void changeToFail(MessageResult result) {
+        changeStatus(result,false);
+    }
+
+    @Transactional
+    private void changeStatus(MessageResult messageResult, boolean isSuccess) {
+        Long uid = messageResult.getUid();
+        try {
+            if (isSuccess) {
+                messageResult.setStatusWithSuccess(); // 성공
+
+                messageResult.setMessageId("message_"+ uid);
+            } else {
+                messageResult.setStatusWithFail(); // 실패
+            }
+        } catch (Exception e) {
+            log.error("Failed to update status for UID: {}", uid, e);
+        }
     }
 
     @Transactional
     private void changeStatus(Long uid, boolean isSuccess) {
-        Optional<MessageResult> result = getFindResult(uid);
-        if (result.isPresent()) {
             try {
-                MessageResult messageResult = result.get();
+                MessageResult messageResult = getFindResult(uid).get();
                 if (isSuccess) {
                     messageResult.setStatusWithSuccess(); // 성공
                     messageResult.setMessageId("message_"+uid);
@@ -56,12 +71,9 @@ public class MessageResultService {
             } catch (Exception e) {
                 log.error("Failed to update status for UID: {}", uid, e);
             }
-        } else {
-            log.error("시작 기록 없음 UID: {} on {}", uid, today);
-        }
     }
 
-    private Optional<MessageResult> getFindResult(Long uid) {
+    Optional<MessageResult> getFindResult(Long uid) {
         return messageResultRepository.findFirstByUidAndCreatedAtBetweenOrderByCreatedAtDesc(uid, startOfDay, endOfDay);
     }
 }
