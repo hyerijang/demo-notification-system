@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(indexes = @Index(name = "idx_uid_created_at", columnList = "uid, createdAt"))
+@Table(indexes = @Index(name = "idx_uid", columnList = "uid"))
 public class MessageResult extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
