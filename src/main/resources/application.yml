@@ -16,8 +16,8 @@ spring:
     username: root
     password: ss49594959
     hikari:
-      maximum-pool-size: 1 #최대 pool 크기
-      minimum-idle: 1 #최소 pool 크기
+      maximum-pool-size: 50 #최대 pool 크기
+      minimum-idle: 10 #최소 pool 크기
 #logging:
 #  level:
 #    org:
@@ -30,3 +30,9 @@ spring:
 #      springframework:
 #        orm:
 #          jpa: DEBUG
+server:
+  tomcat:
+    threads:
+      max: 200 # 생성할 수 있는 thread의 총 개수
+      min-spare: 100 # 항상 활성화 되어있는(idle) thread의 개수
+    accept-count: 100 # 작업 큐의 사이즈
