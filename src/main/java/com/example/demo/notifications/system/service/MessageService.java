@@ -20,7 +20,17 @@ public class MessageService {
     private static final Logger log = LoggerFactory.getLogger(MessageService.class);
     private final MessageResultService messageResultService;
 
+
     @Async("messageSenderThreadPoolTaskExecutor")
+    public void sendMessage(long uid){
+        if (messageResultService.sentToday(uid)) {
+            return;
+        }
+
+        messageResultService.init(uid);
+        send(uid);
+    }
+
     public void send(Long uid) {
 
         Optional<MessageResult> result = messageResultService.getFindResult(uid);
