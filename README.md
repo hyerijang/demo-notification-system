@@ -1,6 +1,19 @@
+<img src = "https://github.com/user-attachments/assets/7dcc66df-daab-4901-902a-1a63582ab4ef" width = "100%"/></a>
+
 # 공모주 알리미 Consumer 클론 코딩
 
-비동기 멀티 스레딩 공부를 위해 인턴 시절 Kotlin 으로개발했던 알림 발송 시스템의 Consumer 부분을 Java로 클론 코딩해 보았습니다. 구현의 편의를 위해 일부 요소는 생략하였습니다. 
+<br>
+
+<div align="center">
+<img src="https://img.shields.io/badge/Java 17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/Spring Boot 3.3.5-6DB33F?style=for-the-badge&logo=spring&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"/></a>
+</div>
+
+<br>
+Java, 비동기 멀티 스레딩 공부를 하면서 인턴 시절 Kotlin 으로 개발했던 알림 발송 시스템의 Consumer 부분을 Java로 클론 코딩해 보았습니다. 구현의 편의를 위해 일부 요소는 생략, 변형하였습니다. 
+
 
 ## 개발 기간
 2024.11.20 (1일)
