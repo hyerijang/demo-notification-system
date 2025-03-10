@@ -23,7 +23,7 @@
    - consumer의 partition size는 3이라고 가정한다.
      
 ## 프로젝트 아키텍처
-- 아래 아키텍처에서 Consumer 부분만 구현하였으며, 구현의 편의를 위해 일부 요소는 생략하였습니다. 
+- 아래 아키텍처에서 Consumer 부분만 구현하였으며, 구현의 편의를 위해 일부 요소는 변형, 생략하였습니다. 
 ![공모주 알리미 아키텍처](https://github.com/user-attachments/assets/0a9474c1-9467-4fb1-9c0c-7f77829ae5f0)
 
 
