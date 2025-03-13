@@ -10,13 +10,15 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @Configuration
 public class AsyncConfig {
 
-    final int MAX_THREAD_SIZE = 50;
+    final int MESSAGE_SENDER_MAX_THREAD_SIZE = 50;
+//    final int MESSAGE_RESULT_CORE_THREAD_SIZE = 5;
+    final int MESSAGE_RESULT_MAX_THREAD_SIZE = 10;
 
     @Bean
     public ThreadPoolTaskExecutor messageSenderThreadPoolTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(MAX_THREAD_SIZE); // 코어 스레드 풀 크기 설정
-        executor.setMaxPoolSize(MAX_THREAD_SIZE); // 최대 스레드 풀 크기 설정
+        executor.setCorePoolSize(MESSAGE_SENDER_MAX_THREAD_SIZE); // 코어 스레드 풀 크기 설정
+        executor.setMaxPoolSize(MESSAGE_SENDER_MAX_THREAD_SIZE); // 최대 스레드 풀 크기 설정
         executor.setQueueCapacity(Integer.MAX_VALUE); // 작업 큐 용량 설정
         executor.setThreadNamePrefix("message-sender-child-executor"); // 스레드 이름 접두사 설정
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy() {
