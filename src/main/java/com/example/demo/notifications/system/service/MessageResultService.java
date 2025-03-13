@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Slf4j
 @Service
-@Transactional(readOnly = true)
+//@Transactional(readOnly = true)
 public class MessageResultService {
 
     private final MessageResultRepository messageResultRepository;
@@ -27,7 +27,7 @@ public class MessageResultService {
         return messageResultRepository.existsByUidAndCreatedAtBetween(uid, startOfDay, endOfDay);
     }
 
-    @Transactional
+//    @Transactional
     public void init(Long uid) {
         // 중복발송 방지 위해 메세지 발송 전 상태 저장
         MessageResult result = new MessageResult(uid);
