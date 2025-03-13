@@ -30,14 +30,16 @@ Java, 비동기 멀티 스레딩 공부를 하면서 인턴 시절 Kotlin 으로
 ### 구현을 단순히 하기 위한 가정
 1. 메세지 플랫폼
     - 사내 공통 서비스인 '메세지 플랫폼'에서 전사 톡메세지/앱푸시 발송을 담당한다고 가정한다.
-    - 지정된 형식에 맞게 메세지를 생성하여 메세지 플랫폼에 request를 보내면, 메세지 플랫폼에서 메세지를 발송하고 결과를 반환한다
+    - (1) 지정된 형식에 맞게 메세지를 생성하여 메세지 플랫폼에 request를 보내면
+    - (2) 메세지 플랫폼에서 메세지를 발송하고 결과를 `공모주알리미 메세지 결과 topic`에 발행한다
+    - 이 프로젝트에서는 구현을 간단히 하기위해 kafka를 사용하지 않고, 메세지 플랫폼에서 비동기로 응답해 준다고 가정하겠음.
 2. 구현의 편의를 위해 kafka는 사용하지 않음
    - consumer가 1분 18000개의 메세지를 커밋한다고 가정한다.
    - consumer의 partition size는 3이라고 가정한다.
      
 ## 프로젝트 아키텍처
 - 아래 아키텍처에서 Consumer 부분만 구현하였으며, 구현의 편의를 위해 일부 요소는 변형, 생략하였습니다. 
-![공모주 알리미 아키텍처](https://github.com/user-attachments/assets/0a9474c1-9467-4fb1-9c0c-7f77829ae5f0)
+![공모주 알리미 아키텍처(간략) (1)](https://github.com/user-attachments/assets/c29bba8e-343f-4bd5-90d1-3367fa16eaa5)
 
 
 ## 구현 과정 설명 
@@ -47,7 +49,7 @@ Java, 비동기 멀티 스레딩 공부를 하면서 인턴 시절 Kotlin 으로
     - consume시 네트워크 통신에 20ms 정도 걸린다고 가정함
 2. `@Async("consumerThreadPoolTaskExecutor")` : 카프카 컨슈머 스레드를 대체하기 비동기 멀티 스레드 구현
    - 스레드 수는 consumer 파티션 수와 동일한 3으로 설졍
-3. `@Async("messageSenderThreadPoolTaskExecutor")`: 메세지 플랫폼 발송을 위한 비동기 멀티 스레드 구현
+3. `@Async("messageSenderThreadPoolTaskExecutor")`: 메세지 플랫폼 발송 및 결과 수신을 위한 비동기 멀티 스레드 구현
    - 스레드 수는 기존 서비스와 동일하게 50개로 설정
 4. ThreadPoolTaskExecutor 관련 설정
     - CPU, 메모리 리소스 사용량을 안정적으로 유지하기 위해 고정 풀 전략 사용
