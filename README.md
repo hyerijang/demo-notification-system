@@ -37,17 +37,30 @@ Java, 비동기 멀티 스레딩 공부를 하면서 인턴 시절 Kotlin 으로
    - consumer가 1분 18000개의 메세지를 커밋한다고 가정한다.
    - consumer의 partition size는 3이라고 가정한다.
      
-## 프로젝트 아키텍처
-### 전체 아키텍처 (가정)
-- 아래 아키텍처에서 Consumer 부분만 구현하였으며, 구현의 편의를 위해 일부 요소는 변형, 생략하였습니다.
+## 참고한 아키텍처
+실제 서비스에서 설계했던 아키텍처 입니다. Consumer 모듈을 담당하여 구현했습니다. 
+
+### 전체 아키텍처 
+<details>
+<summary>더보기</summary>
+    
 - ![공모주 알리미 아키텍처(간략) (2)](https://github.com/user-attachments/assets/0333c750-837b-4b90-9c85-487372976815)
 
+</details>
+
 ### Consumer 서버 아키텍처 
+<details>
+<summary>더보기</summary>
+
 - ![공모주 알리미 컨슈머 아키텍처 (실제)](https://github.com/user-attachments/assets/d955f723-1f3e-490a-94fa-abfed36adbd9)
+</details>
+
+## 프로젝트 아키텍처 V1
+![공모주 알리미 컨슈머 아키텍처 (개인플젝1)](https://github.com/user-attachments/assets/84abcd51-73b4-4e12-a089-e6d12cb40c3c)
 
 
 
-## 구현 과정 설명 
+## V1 구현 과정 설명 
 | 비동기 멀티 스레딩 중심으로 설명
 
 1. 카프카 컨슈머를 대체하기 위한 `KafkaSimulator` 구현
