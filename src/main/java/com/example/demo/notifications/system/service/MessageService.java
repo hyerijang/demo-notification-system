@@ -25,6 +25,7 @@ public class MessageService {
     @Async("messageSenderThreadPoolTaskExecutor")
     public void sendMessage(long uid){
         if (messageResultService.sentToday(uid)) {
+            log.warn("이미 발송한 유저 : {}", uid);
             return;
         }
 

@@ -28,15 +28,18 @@ public class BatchController {
     private final KafkaMessageQueue kafkaMessageQueue;
     @GetMapping("/start/{size}")
     public String start(@PathVariable Long size) throws ExecutionException, InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ExecutorService producerParentExecutorService = Executors.newFixedThreadPool(1);
+        ExecutorService consumerParentExecutorService = Executors.newFixedThreadPool(1);
 
         KafkaProducer producer = new KafkaProducer(kafkaMessageQueue, size);
         KafkaConsumer consumer = new KafkaConsumer(kafkaMessageQueue);
 
-        executorService.submit(producer);
-        executorService.submit(consumer);
-
-        executorService.shutdown();
+        producerParentExecutorService.submit(producer);
+        consumerParentExecutorService.submit(consumer);
+        
+        // TODO : 우아한 종료
+        producerParentExecutorService.shutdown();
+        consumerParentExecutorService.shutdown();
 
         return "메세지 발송 시작" + LocalDateTime.now();
     }
