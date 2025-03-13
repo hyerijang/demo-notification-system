@@ -38,8 +38,12 @@ Java, 비동기 멀티 스레딩 공부를 하면서 인턴 시절 Kotlin 으로
    - consumer의 partition size는 3이라고 가정한다.
      
 ## 프로젝트 아키텍처
+### 전체 아키텍처 (가정)
 - 아래 아키텍처에서 Consumer 부분만 구현하였으며, 구현의 편의를 위해 일부 요소는 변형, 생략하였습니다.
 - ![공모주 알리미 아키텍처(간략) (2)](https://github.com/user-attachments/assets/0333c750-837b-4b90-9c85-487372976815)
+
+### Consumer 서버 아키텍처 
+- ![공모주 알리미 컨슈머 아키텍처 (실제)](https://github.com/user-attachments/assets/d955f723-1f3e-490a-94fa-abfed36adbd9)
 
 
 
