@@ -1,6 +1,7 @@
 package com.example.demo.notifications.system.service;
 
 
+import com.example.demo.notifications.system.MessageDto;
 import com.example.demo.notifications.system.domain.MessageResult;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -23,7 +24,8 @@ public class MessageService {
 
 
     @Async("messageSenderThreadPoolTaskExecutor")
-    public void sendMessage(long uid){
+    public void sendMessage(MessageDto messageDto){
+        Long uid = messageDto.getUid();
         if (messageResultService.sentToday(uid)) {
             log.warn("이미 발송한 유저 : {}", uid);
             return;

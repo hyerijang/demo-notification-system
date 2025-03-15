@@ -18,6 +18,11 @@ spring:
     hikari:
       maximum-pool-size: 50 #최대 pool 크기
       minimum-idle: 10 #최소 pool 크기
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: foo
+      auto-offset-reset: earliest
 #logging:
 #  level:
 #    org:
