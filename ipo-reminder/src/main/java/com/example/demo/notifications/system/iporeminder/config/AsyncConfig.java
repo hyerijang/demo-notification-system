@@ -39,7 +39,7 @@ public class AsyncConfig {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(5); // 코어 스레드 풀 크기 설정
         executor.setMaxPoolSize(30); // 최대 스레드 풀 크기 설정
-        executor.setQueueCapacity(Integer.MAX_VALUE); // 작업 큐 용량 설정
+        executor.setQueueCapacity(10); // MaxPoolSize에 도달하기 위해서는 작업 큐 용량을 유한하게 설정해야한다.
         executor.setThreadNamePrefix("message-result-consumer-child-executor"); // 스레드 이름 접두사 설정
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy() {
                                                  @Override
