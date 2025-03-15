@@ -1,0 +1,44 @@
+spring:
+  profiles:
+    activate:
+      on-profile: local
+  jpa:
+    database: mysql
+    hibernate.ddl-auto: create-drop
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        highlight_sql : true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/notification
+    username: root
+    password: ss49594959
+    hikari:
+      maximum-pool-size: 50 #최대 pool 크기
+      minimum-idle: 10 #최소 pool 크기
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: foo
+      auto-offset-reset: earliest
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: DEBUG
+#        type:
+#          descriptor:
+#            sql:
+#              BasicBinder: TRACE
+#      springframework:
+#        orm:
+#          jpa: DEBUG
+server:
+  tomcat:
+    threads:
+      max: 200 # 생성할 수 있는 thread의 총 개수
+      min-spare: 100 # 항상 활성화 되어있는(idle) thread의 개수
+    accept-count: 100 # 작업 큐의 사이즈
+  port: 8082 # 배치 서버 포트 8082
