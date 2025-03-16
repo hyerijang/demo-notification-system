@@ -1,6 +1,6 @@
 <img src = "https://github.com/user-attachments/assets/7dcc66df-daab-4901-902a-1a63582ab4ef" width = "100%"/></a>
 
-# 공모주 알리미 Consumer 클론 코딩
+# 공모주 알리미 클론 코딩
 
 <br>
 
@@ -8,16 +8,25 @@
 <img src="https://img.shields.io/badge/Java 17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white"/></a>
 <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white"/></a>
 <img src="https://img.shields.io/badge/Spring Boot 3.3.5-6DB33F?style=for-the-badge&logo=spring&logoColor=white"/></a>
+</div>
+<div align="center">
+<img src="https://img.shields.io/badge/MySQL 8-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"/></a>
 <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/docker-257bd6?style=for-the-badge&logo=docker&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/Apache_Kafka-231F20?style=for-the-badge&logo=apache-kafka&logoColor=white"/></a>
 </div>
 
 <br>
-Java, 비동기 멀티 스레딩 공부를 하면서 인턴 시절 Kotlin 으로 개발했던 알림 발송 시스템의 Consumer 부분을 Java로 클론 코딩해 보았습니다. 구현의 편의를 위해 일부 요소는 생략, 변형하였습니다. 
+Java, 비동기 멀티 스레딩 공부를 하면서 인턴 시절 Kotlin 으로 개발했던 알림 발송 시스템을 Java로 클론 코딩해 보았습니다. 구현의 편의를 위해 일부 요소는 생략, 변형하였습니다. 
 
+- [[알림 서비스 클론 코딩] : V1 기본 기능 구현](https://dev-jhl.tistory.com/118)
+- [[알림 서비스 클론 코딩] : V2 설계 변경 및 Kafka 추가](https://dev-jhl.tistory.com/120)
+- [[알림 서비스 클론 코딩] : V3 멀티 모듈 전환기](https://dev-jhl.tistory.com/122)
 
 ## 개발 기간
-2024.11.20 (1일)
-
+- V1 / 2024.11.20 / 간략화한 설계,  비동기 멀티스레딩으로 간단한 알림 전송 구현
+- V2 / 2025.03.13 ~ 14 / 책임을 명확히 하기 위해 메세지 스레드 풀과 메세지 결과 스레드 풀을 분리, Kafka 도입
+- V3 / 2023.03.15 : / 단일 모듈을 멀티 모듈로 세분화
 ## 요구사항 분석
 - 공모주 알리미 서비스 구독자 (120만명) 대상으로 매일 2회, 공모주 청약 알림 메세지(카카오톡 or 앱푸시)을 발송하는 서비스의 Consumer 부분을 구현한다.
 ### 메세지 발송 속도
@@ -32,39 +41,54 @@ Java, 비동기 멀티 스레딩 공부를 하면서 인턴 시절 Kotlin 으로
     - 사내 공통 서비스인 '메세지 플랫폼'에서 전사 톡메세지/앱푸시 발송을 담당한다고 가정한다.
     - (1) 지정된 형식에 맞게 메세지를 생성하여 메세지 플랫폼에 request를 보내면
     - (2) 메세지 플랫폼에서 메세지를 발송하고 결과를 `공모주알리미 메세지 결과 topic`에 발행한다
-    - 이 프로젝트에서는 구현을 간단히 하기위해 kafka를 사용하지 않고, 메세지 플랫폼에서 비동기로 응답해 준다고 가정하겠음.
-2. 구현의 편의를 위해 kafka는 사용하지 않음
+    -  메세지 플랫폼에서 비동기로 응답해준다고 가정하겠음.
+2. Kafka의 처리 성능 가정
    - consumer가 1분 18000개의 메세지를 커밋한다고 가정한다.
    - consumer의 partition size는 3이라고 가정한다.
-     
-## 참고한 아키텍처
-실제 서비스에서 설계했던 아키텍처 입니다. Consumer 모듈을 담당하여 구현했습니다. 
 
-### 전체 아키텍처 
-<details>
-<summary>더보기</summary>
-    
-- ![공모주 알리미 아키텍처(간략) (2)](https://github.com/user-attachments/assets/0333c750-837b-4b90-9c85-487372976815)
+## 전체 아키텍처
 
-</details>
+![공모주 알리미 아키텍처(간략) (2)](https://github.com/user-attachments/assets/0333c750-837b-4b90-9c85-487372976815)
 
-### Consumer 서버 아키텍처 
-<details>
-<summary>더보기</summary>
 
-- ![공모주 알리미 컨슈머 아키텍처 (실제)](https://github.com/user-attachments/assets/d955f723-1f3e-490a-94fa-abfed36adbd9)
-</details>
+## 프로젝트 아키텍처 
+### V3
+![공모주 클론 v3](https://github.com/user-attachments/assets/b230ae1b-6f69-4fbf-8c0b-55611589c260)
 
-## 프로젝트 아키텍처 V1
+### V2
+![공모주 알리미 컨슈머 아키텍처 (실제) (1)](https://github.com/user-attachments/assets/a324b814-e5f4-4736-8f9a-486745cd2495)
+
+### V1
 ![공모주 알리미 컨슈머 아키텍처 (개인플젝1)](https://github.com/user-attachments/assets/84abcd51-73b4-4e12-a089-e6d12cb40c3c)
 
 
+## V3 구현 과정 설명
+- [[알림 서비스 클론 코딩] : V3 멀티 모듈 전환기](https://dev-jhl.tistory.com/122)
+- 단일 모듈을 멀티 모듈로 세분화, 각 모듈의 책임 분리하고 가독성 개선
+  - ipo-reminder-batch, ipo-reminer, message-platform
+
+## V2 구현 과정 설명
+
+- [[알림 서비스 클론 코딩] : V2 설계 변경 및 Kafka 추가](https://dev-jhl.tistory.com/120)
+
+1. 책임을 명확히 하기 위해 메세지 스레드 풀과 메세지 결과 스레드 풀을 분리 
+   - 기존 구조에선 메세지 전송 + 전송 결과 수신을 하나의 스레드에서 처리하고 있어서 자원 낭비가 있었고, 책임이 명확하지 않았다.
+   - 메세지 전송 스레드 풀과 메세지 결과 수신 스레드 풀을 분리하여 책임을 명확히 하였음
+2. Kafka 도입
+   - 멀티 브로커(3개)로 구성
+   - topic 2개 생성
+     - dev.ipo-message-request.v1 (메세지 전송 요청)
+     - dev.ipo-message-platform-result.v1 (메세지 플랫폼 전송 결과 수신)
 
 ## V1 구현 과정 설명 
+
+- [[알림 서비스 클론 코딩] : V1 기본 기능 구현](https://dev-jhl.tistory.com/118)
+- 
 | 비동기 멀티 스레딩 중심으로 설명
 
-1. 카프카 컨슈머를 대체하기 위한 `KafkaSimulator` 구현
-    - consume시 네트워크 통신에 20ms 정도 걸린다고 가정함
+1. 메세지 전송용 카프카를 대체하기 위해 `Producer, Consumer` 구현
+   - LinkedBlockingQueue 활용
+   - consume시 네트워크 통신에 20ms 정도 걸린다고 가정함
 2. `@Async("consumerThreadPoolTaskExecutor")` : 카프카 컨슈머 스레드를 대체하기 비동기 멀티 스레드 구현
    - 스레드 수는 consumer 파티션 수와 동일한 3으로 설졍
 3. `@Async("messageSenderThreadPoolTaskExecutor")`: 메세지 플랫폼 발송 및 결과 수신을 위한 비동기 멀티 스레드 구현
