@@ -24,7 +24,7 @@ Java, 비동기 멀티 스레딩 공부를 하면서 인턴 시절 Kotlin 으로
 
 <br>
 
-
+## 회고 글
 - [[알림 서비스 클론 코딩] : V1 기본 기능 구현](https://dev-jhl.tistory.com/118)
 - [[알림 서비스 클론 코딩] : V2 설계 변경 및 Kafka 추가](https://dev-jhl.tistory.com/120)
 - [[알림 서비스 클론 코딩] : V3 멀티 모듈 전환기](https://dev-jhl.tistory.com/122)
